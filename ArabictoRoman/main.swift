@@ -1,21 +1,15 @@
-let d = [1: "I", 5: "V", 10: "X", 50: "L", 100: "C", 500: "D", 1000: "M"]
-while let l = readLine() {
-	var n = l
-	var s = ""
-	var inc = 1
-	for i in String(n.reversed()) {
-		var num = Int(String(i))!
-		if 1 <= num && num <= 3 {
-			s = String(repeating: d[1*inc]!, count: num) + s
-		} else if num%10 == 4 {
-			s = d[1*inc]!+d[5*inc]! + s
-		} else if 5 <= num && num <= 8 {
-			s = d[5*inc]! + String(repeating: d[1*inc]!, count: num-5) + s
-		} else if num%10 == 9 {
-			s = d[1*inc]!+d[10*inc]! + s
+let d=[1:"I",4:"IV",5:"V",9:"IX",10:"X",40:"XL",50:"L",90:"XC",100:"C",400:"CD",500:"D",900:"CM",1000:"M"]
+for l in CommandLine.arguments.dropFirst() {
+	var s=""
+	var c=1
+	for i in l.reversed(){
+		var n=Int("\(i)")!
+		if(0...8)~=n && n != 4{
+			s = (n>=5 ? d[5*c]! : "") + {String.init}()(d[1*c]!,n%5) + s
+		}else{
+			s=d[n*c]!+s
 		}
-		inc *= 10
+		c*=10
 	}
 	print(s)
 }
-
